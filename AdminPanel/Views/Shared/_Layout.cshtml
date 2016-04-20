@@ -20,8 +20,6 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Admin", "Admin", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Log", "Log", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("LogOut", "LogOut", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
@@ -34,14 +32,7 @@
         @RenderBody()
         <hr />
         <footer>
-            @if (ViewBag.Title == "Index")
-            {
-                <p style="color:yellow">&copy; @DateTime.Now.Year - JewelleryStore</p>
-            }
-            else
-            {
                 <p>&copy; @DateTime.Now.Year - YBU GRADUATION PROJECT</p>
-            }
         </footer>
     </div>
 

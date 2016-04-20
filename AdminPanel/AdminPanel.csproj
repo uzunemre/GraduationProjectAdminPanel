@@ -154,12 +154,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\Food.cs" />
     <Compile Include="Models\GraduationProjectContext.cs" />
+    <Compile Include="Models\Mapping\CategoryMap.cs" />
+    <Compile Include="Models\Mapping\DeviceMap.cs" />
+    <Compile Include="Models\Mapping\FoodMap.cs" />
     <Compile Include="Models\Mapping\RestaurantMap.cs" />
     <Compile Include="Models\Mapping\sysdiagramMap.cs" />
     <Compile Include="Models\Restaurant.cs" />
     <Compile Include="Models\sysdiagram.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,13 +173,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\Admin.cshtml" />
-    <Content Include="Views\Home\Log.cshtml" />
-    <Content Include="Views\Home\SignIn.cshtml" />
-    <Content Include="Views\Shared\FileUpload.cshtml" />
-    <Content Include="Views\Shared\ProductDetail.cshtml" />
-    <Content Include="Views\Shared\ProductList.cshtml" />
-    <Content Include="Views\Shared\ProductScreen.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\LoggedIn.cshtml" />

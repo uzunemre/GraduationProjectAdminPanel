@@ -1,4 +1,6 @@
-﻿
+﻿@model IQueryable<AdminPanel.Models.Category>
+
+
 @{
     ViewBag.Title = "LoggedIn";
 }
@@ -6,5 +8,14 @@
 @if(Session["UserID"] !=null)
 {
     <h4>Hello @Session["Username"].ToString()</h4>
+
+    foreach(var category in Model)
+    {
+        <p>@category.Name</p>
+    }
+
+
 }
+
+
 

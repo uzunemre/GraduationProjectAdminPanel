@@ -8,28 +8,44 @@ namespace AdminPanel.Models.Mapping
         public RestaurantMap()
         {
             // Primary Key
-            this.HasKey(t => t.Code);
+            this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.User_Name)
+            this.Property(t => t.Name)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            this.Property(t => t.Restaurant_Name)
+            this.Property(t => t.UserName)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(50);
 
             this.Property(t => t.Password)
                 .IsRequired()
                 .IsFixedLength()
                 .HasMaxLength(128);
 
+            this.Property(t => t.Phone)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            this.Property(t => t.Mail)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            this.Property(t => t.PicturePath)
+                .IsRequired()
+                .IsFixedLength()
+                .HasMaxLength(10);
+
             // Table & Column Mappings
-            this.ToTable("Restaurants");
-            this.Property(t => t.Code).HasColumnName("Code");
-            this.Property(t => t.User_Name).HasColumnName("User_Name");
-            this.Property(t => t.Restaurant_Name).HasColumnName("Restaurant_Name");
+            this.ToTable("Restaurant");
+            this.Property(t => t.Id).HasColumnName("Id");
+            this.Property(t => t.Name).HasColumnName("Name");
+            this.Property(t => t.UserName).HasColumnName("UserName");
             this.Property(t => t.Password).HasColumnName("Password");
+            this.Property(t => t.Phone).HasColumnName("Phone");
+            this.Property(t => t.Mail).HasColumnName("Mail");
+            this.Property(t => t.PicturePath).HasColumnName("PicturePath");
         }
     }
 }
