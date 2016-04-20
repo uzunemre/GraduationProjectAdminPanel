@@ -141,7 +141,6 @@
     <Content Include="Scripts\jquery.signalR-2.1.1.js" />
     <Content Include="Scripts\jquery.signalR-2.1.1.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config" />
@@ -150,6 +149,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\FoodsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -174,9 +175,21 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Home\LoggedIn.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Categories\Create.cshtml" />
+    <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Categories\Details.cshtml" />
+    <Content Include="Views\Categories\Edit.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Views\Home\KategoriListele.cshtml" />
+    <Content Include="Views\Shared\ListFood.cshtml" />
+    <Content Include="Views\Foods\Create.cshtml" />
+    <Content Include="Views\Foods\Delete.cshtml" />
+    <Content Include="Views\Foods\Details.cshtml" />
+    <Content Include="Views\Foods\Edit.cshtml" />
+    <Content Include="Views\Foods\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -32,10 +32,9 @@ namespace AdminPanel.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(100);
 
-            this.Property(t => t.PicturePath)
+            this.Property(t => t.PictureFolderPath)
                 .IsRequired()
-                .IsFixedLength()
-                .HasMaxLength(10);
+                .HasMaxLength(200);
 
             // Table & Column Mappings
             this.ToTable("Restaurant");
@@ -45,7 +44,7 @@ namespace AdminPanel.Models.Mapping
             this.Property(t => t.Password).HasColumnName("Password");
             this.Property(t => t.Phone).HasColumnName("Phone");
             this.Property(t => t.Mail).HasColumnName("Mail");
-            this.Property(t => t.PicturePath).HasColumnName("PicturePath");
+            this.Property(t => t.PictureFolderPath).HasColumnName("PictureFolderPath");
         }
     }
 }

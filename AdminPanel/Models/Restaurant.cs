@@ -18,7 +18,7 @@ namespace AdminPanel.Models
         public string Password { get; set; }
         public string Phone { get; set; }
         public string Mail { get; set; }
-        public string PicturePath { get; set; }
+        public string PictureFolderPath { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Device> Devices { get; set; }
         public virtual ICollection<Food> Foods { get; set; }

@@ -2,7 +2,9 @@
 using AdminPanel.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -10,18 +12,34 @@ namespace AdminPanel.Controllers
 {
     public class HomeController : Controller
     {
-        GraduationProjectContext context = new GraduationProjectContext();
+
+        private GraduationProjectContext context = new GraduationProjectContext();
+        
+        private int getSessionInfo()
+        {
+            string test = Session["UserID"].ToString();
+            int x = Int32.Parse(test);
+            return x;
+        }
+     
 
 
 
         public ActionResult Index()
         {
-
-
+             
+           
             if (Session["UserID"] == null)
             {
                 return RedirectToAction("Login");
             }
+
+            /*    else
+                {
+                    int a = getSessionInfo();
+                    var foods = context.Foods.Include(f => f.Category).Include(f => f.Restaurant).Where(f => f.RestaurantId == a);
+                    return View(foods.ToList());
+                }*/
 
             return View();
         }
@@ -38,9 +56,10 @@ namespace AdminPanel.Controllers
             var user = context.Restaurants.Where(u => u.UserName == restaurant_user.UserName && u.Password == restaurant_user.Password).FirstOrDefault();
             if (user != null)
             {
-                Session["UserID"] = restaurant_user.Id.ToString();
-                Session["Username"] = restaurant_user.UserName.ToString();
-                return RedirectToAction("LoggedIn");
+
+                Session["UserID"] = user.Id.ToString();
+                Session["Username"] = user.UserName.ToString();
+                return RedirectToAction("Index");
 
             }
 
@@ -53,31 +72,36 @@ namespace AdminPanel.Controllers
         }
 
 
+        
 
-        public ActionResult LoggedIn()
+
+        public ActionResult LogOut()
         {
-            
+            Session.Clear();
+            return RedirectToAction("Login");
+        }
 
 
-            if (Session["UserID"] != null)
-            {
-                string user_id = (Session["UserId"].ToString());
-                int x = Int32.Parse(user_id);
-                var categories = from cat in context.Categories
-                                 where cat.RestaurantId == 1000
-                                 select cat;
-                                    
-                return View(categories);
-            }
+       
 
-            else
 
+
+        
+
+
+
+        public ActionResult KategoriListele()
+        {
+            if (Session["UserID"] == null)
             {
                 return RedirectToAction("Login");
             }
-
-
+            // restauranta ait kategorileri çektim ViewBag ile yolladım
+            int restaurant_id = getSessionInfo();
+            var restaurant_categories = context.Categories.Where(x => x.RestaurantId == restaurant_id).ToList();
+            return View(restaurant_categories);
         }
+
 
 
 

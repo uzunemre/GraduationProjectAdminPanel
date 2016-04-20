@@ -16,11 +16,11 @@ namespace AdminPanel.Models
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Device> Devices { get; set; }
-        public DbSet<Food> Foods { get; set; }
-        public DbSet<Restaurant> Restaurants { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public IDbSet<Category> Categories { get; set; }
+        public IDbSet<Device> Devices { get; set; }
+        public IDbSet<Food> Foods { get; set; }
+        public IDbSet<Restaurant> Restaurants { get; set; }
+        public IDbSet<sysdiagram> sysdiagrams { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
