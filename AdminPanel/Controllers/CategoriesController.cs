@@ -14,10 +14,18 @@ namespace AdminPanel.Controllers
     {
         private GraduationProjectContext db = new GraduationProjectContext();
 
+        private int getSessionInfo()
+        {
+            string test = Session["UserID"].ToString();
+            int x = Int32.Parse(test);
+            return x;
+        }
+
         // GET: Categories
         public ActionResult Index()
         {
-            var categories = db.Categories.Include(c => c.Restaurant);
+            int a = getSessionInfo();
+            var categories = db.Categories.Include(c => c.Restaurant).Where(c => c.RestaurantId == a);
             return View(categories.ToList());
         }
 
@@ -39,7 +47,7 @@ namespace AdminPanel.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
-            ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name");
+           // ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name");
             return View();
         }
 
@@ -48,16 +56,17 @@ namespace AdminPanel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,PicturePath,RestaurantId")] Category category)
+        public ActionResult Create([Bind(Include = "Id,Name,PicturePath")] Category category)
         {
             if (ModelState.IsValid)
             {
+                category.RestaurantId = getSessionInfo();
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name", category.RestaurantId);
+            
             return View(category);
         }
 
@@ -82,15 +91,17 @@ namespace AdminPanel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,PicturePath,RestaurantId")] Category category)
+        public ActionResult Edit([Bind(Include = "Id,Name,PicturePath")] Category category)
         {
             if (ModelState.IsValid)
             {
+                category.RestaurantId = getSessionInfo();
+                db.Categories.Add(category);
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name", category.RestaurantId);
+            
             return View(category);
         }
 
@@ -132,8 +143,26 @@ namespace AdminPanel.Controllers
 
         public ActionResult UrunListele(int id)
         {
-            var food = db.Foods.Where(x => x.CategoryId == id).ToList();
-            return View("ListFood", food);
+            // Kullanıcı sekmeden kafasına göre id girerse başka restorana ait engelle
+            int a = getSessionInfo();
+            var category_id_for_restaurant = from category in db.Categories
+                                             where category.RestaurantId == a
+                                             select category.Id;
+
+            foreach (int cat_id in category_id_for_restaurant)
+            {
+                if(cat_id == id)
+                {
+                    var food = db.Foods.Where(x => x.CategoryId == id).ToList();
+                    return View("ListFood", food);
+                }
+            }
+
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
+
         }
 
 

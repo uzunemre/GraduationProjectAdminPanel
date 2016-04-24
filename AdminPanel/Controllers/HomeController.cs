@@ -59,7 +59,7 @@ namespace AdminPanel.Controllers
 
                 Session["UserID"] = user.Id.ToString();
                 Session["Username"] = user.UserName.ToString();
-                return RedirectToAction("Index");
+                return RedirectToAction("KategoriListele");
 
             }
 
@@ -96,6 +96,10 @@ namespace AdminPanel.Controllers
             {
                 return RedirectToAction("Login");
             }
+         //   int a = getSessionInfo();
+         //   var categories = context.Categories.Include(c => c.Restaurant).Where(c => c.RestaurantId == a);
+         //   return View(categories.ToList());
+
             // restauranta ait kategorileri çektim ViewBag ile yolladım
             int restaurant_id = getSessionInfo();
             var restaurant_categories = context.Categories.Where(x => x.RestaurantId == restaurant_id).ToList();
