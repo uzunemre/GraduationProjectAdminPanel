@@ -73,17 +73,37 @@ namespace AdminPanel.Controllers
         // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
+            int restaurant_id = getSessionInfo();
+
+            var id_categories = from cat in db.Categories
+                                where cat.RestaurantId == restaurant_id
+                                select cat.Id;
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
-            if (category == null)
+
+
+            foreach(int category_id in id_categories)
             {
-                return HttpNotFound();
+                if(category_id == id)
+                {
+                    Category category = db.Categories.Find(id);
+                    if (category == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+
+                    ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name", category.RestaurantId);
+                    return View(category);
+                }
             }
-            ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name", category.RestaurantId);
-            return View(category);
+
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+
         }
 
         // POST: Categories/Edit/5
@@ -99,7 +119,7 @@ namespace AdminPanel.Controllers
                 db.Categories.Add(category);
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("KategoriListele","Home");
             }
             
             return View(category);
@@ -125,6 +145,18 @@ namespace AdminPanel.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Delete View ismi post işlemi onu belirtiyor
+            // Kategoriye ait ürünleri buldum teker teker silinecek
+            var products_of_category = from product in db.Foods
+                                       where product.CategoryId == id
+                                       select product.Id;
+
+            foreach (int product_id in products_of_category)
+            {
+                Food food = db.Foods.Find(product_id);
+                db.Foods.Remove(food);
+            }
+
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();

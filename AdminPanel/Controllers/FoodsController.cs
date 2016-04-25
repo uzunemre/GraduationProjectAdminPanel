@@ -71,7 +71,7 @@ namespace AdminPanel.Controllers
                 food.RestaurantId = restaurant_id;
                 db.Foods.Add(food);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("KategoriListele","Home");
             }
 
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", food.CategoryId);
@@ -101,7 +101,7 @@ namespace AdminPanel.Controllers
                     Session["category_id"] = food.CategoryId;
                     if (food == null)
                     {
-                        return HttpNotFound();
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
 
                     ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", food.CategoryId);
@@ -111,7 +111,7 @@ namespace AdminPanel.Controllers
             }
 
 
-            return HttpNotFound();
+            return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
 
 
@@ -138,7 +138,8 @@ namespace AdminPanel.Controllers
                 food.RestaurantId = restaurant_id;
                 db.Entry(food).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("UrunListele", "Categories",new { Id = x });  // parametre olarak kategori id yolla
+               // return RedirectToAction("Index");
             }
            // ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", food.CategoryId);
            // ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name", food.RestaurantId);
