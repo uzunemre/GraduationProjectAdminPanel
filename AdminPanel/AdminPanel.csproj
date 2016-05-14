@@ -135,6 +135,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\JewelleryScript.js" />
+    <None Include="Properties\PublishProfiles\virs_61.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -143,12 +144,15 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Views\web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApiProductController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\DevicesController.cs" />
     <Compile Include="Controllers\FoodsController.cs" />
@@ -159,6 +163,10 @@
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Device.cs" />
+    <Compile Include="Models\DTO\CategoryDTO.cs" />
+    <Compile Include="Models\DTO\CategoryProductDTO.cs" />
+    <Compile Include="Models\DTO\ProductDTO.cs" />
+    <Compile Include="Models\DTO\RootObject.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\GraduationProjectContext.cs" />
     <Compile Include="Models\Mapping\CategoryMap.cs" />
@@ -202,6 +210,7 @@
     <Content Include="Views\Test\Details.cshtml" />
     <Content Include="Views\Test\Edit.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\ImageUpload.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -211,6 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

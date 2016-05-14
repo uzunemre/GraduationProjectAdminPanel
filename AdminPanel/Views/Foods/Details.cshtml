@@ -45,11 +45,13 @@
         </dd>
 
         <dt>
-           Resim Yolu
+           Resim
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PicturePath)
+           <!--  @Html.DisplayFor(model => model.PicturePath) -->
+            
+            <img src="~/@Model.PicturePath"  />
         </dd>
 
     </dl>

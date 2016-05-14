@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminPanel.Models;
+using System.IO;
 
 namespace AdminPanel.Controllers
 {
@@ -63,12 +64,26 @@ namespace AdminPanel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId,PicturePath")] Food food)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] Food food, HttpPostedFileBase uploadfile)
         {
             if (ModelState.IsValid)
             {
+                
+                string folder_name = "Images";
+                string file_name = Guid.NewGuid().ToString() + "_" + Path.GetFileName(uploadfile.FileName);
+
+                if (uploadfile.ContentLength > 0)
+                {
+                    string file_path = Server.MapPath("~/" + folder_name + "/" + file_name);
+                    //filePath = Path.Combine(Server.MapPath("~/Images"), Guid.NewGuid().ToString() + "_" + Path.GetFileName(uploadfile.FileName));
+                    uploadfile.SaveAs(file_path);
+                }
+
+                string database_path = folder_name + "/" + file_name;
+
                 int restaurant_id = getSessionInfo();
                 food.RestaurantId = restaurant_id;
+                food.PicturePath = database_path;
                 db.Foods.Add(food);
                 db.SaveChanges();
                 return RedirectToAction("KategoriListele","Home");
@@ -125,20 +140,56 @@ namespace AdminPanel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price,PicturePath")] Food food)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price")] Food food, HttpPostedFileBase uploadfile)
         {
             // sessiona category_id bilgisi atadım ürün değişikliği o şekilde yapıldı
             if (ModelState.IsValid)
             {
+
+                string folder_name = "";
+                string file_name = "";
                 string test = Session["category_id"].ToString();
                 int x = Int32.Parse(test);
-                
                 int restaurant_id = getSessionInfo();
-                food.CategoryId = x;
-                food.RestaurantId = restaurant_id;
-                db.Entry(food).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("UrunListele", "Categories",new { Id = x });  // parametre olarak kategori id yolla
+
+                if (uploadfile!=null)
+                {
+                    folder_name = "Images";
+                    file_name = Guid.NewGuid().ToString() + "_" + Path.GetFileName(uploadfile.FileName);
+                    string file_path = Server.MapPath("~/" + folder_name + "/" + file_name);
+                    uploadfile.SaveAs(file_path);
+
+                    string database_path = folder_name + "/" + file_name;
+                    food.CategoryId = x;
+                    food.RestaurantId = restaurant_id;
+                    food.PicturePath = database_path;
+                    db.Entry(food).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("KategoriListele", "Home");
+                }
+
+                else
+                {
+
+                    // id ye göre resim pathini bul
+
+                    var food_picture_path = (from product in db.Foods
+                                             where product.Id == food.Id
+                                             select product.PicturePath).SingleOrDefault();
+
+
+
+                    // restaurant id bilgisine göre veritabanına ekleyecek. Resim yüklü değilse veritabanında picture path dokunma
+                    food.CategoryId = x;
+                    food.RestaurantId = restaurant_id;
+                    food.PicturePath = food_picture_path;
+                    
+                    db.Entry(food).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("KategoriListele", "Home");
+                }
+
+               
                // return RedirectToAction("Index");
             }
            // ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", food.CategoryId);
@@ -169,7 +220,7 @@ namespace AdminPanel.Controllers
             Food food = db.Foods.Find(id);
             db.Foods.Remove(food);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("KategoriListele", "Home");
         }
 
         protected override void Dispose(bool disposing)

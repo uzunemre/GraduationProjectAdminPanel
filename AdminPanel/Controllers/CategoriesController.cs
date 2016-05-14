@@ -63,7 +63,7 @@ namespace AdminPanel.Controllers
                 category.RestaurantId = getSessionInfo();
                 db.Categories.Add(category);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("KategoriListele", "Home");
             }
 
             

@@ -7,12 +7,34 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AdminPanel.Models;
+using System.IO;
 
 namespace AdminPanel.Controllers
 {
     public class TestController : Controller
     {
         private GraduationProjectContext db = new GraduationProjectContext();
+        
+
+        public ActionResult ImageUpload()
+        {
+           
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult ImageUpload(HttpPostedFileBase uploadfile)
+        {
+            if (uploadfile.ContentLength > 0)
+            {
+                string filePath = Path.Combine(Server.MapPath("~/Images"), Guid.NewGuid().ToString() + "_" + Path.GetFileName(uploadfile.FileName));
+                uploadfile.SaveAs(filePath);
+            }
+
+            return View();
+        }
 
         // GET: Test
         public ActionResult Index()

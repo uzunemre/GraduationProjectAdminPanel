@@ -6,7 +6,7 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Foods", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -44,10 +44,9 @@
      
 
         <div class="form-group">
-            @Html.Label("Resim Yolu", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Resim Seç", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PicturePath, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PicturePath, "", new { @class = "text-danger" })
+                <input type="file" name="uploadfile" id="uploadfile" class="form-control" />
             </div>
         </div>
 

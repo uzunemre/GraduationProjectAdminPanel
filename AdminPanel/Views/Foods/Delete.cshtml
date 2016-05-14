@@ -12,23 +12,17 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
+           Kategori
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Category.Name)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Restaurant.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Restaurant.Name)
-        </dd>
+        
 
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            Ad
         </dt>
 
         <dd>
@@ -36,7 +30,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            Açıklama
         </dt>
 
         <dd>
@@ -44,7 +38,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            Fiyat
         </dt>
 
         <dd>
@@ -52,11 +46,12 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PicturePath)
+            Resim
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PicturePath)
+            
+            <img src="~/@Model.PicturePath " />
         </dd>
 
     </dl>
