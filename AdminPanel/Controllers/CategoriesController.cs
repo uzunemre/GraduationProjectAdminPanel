@@ -96,7 +96,7 @@ namespace AdminPanel.Controllers
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                     }
 
-                    ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name", category.RestaurantId);
+                  //  ViewBag.RestaurantId = new SelectList(db.Restaurants, "Id", "Name", category.RestaurantId);
                     return View(category);
                 }
             }
@@ -187,6 +187,7 @@ namespace AdminPanel.Controllers
                 {
                     var food = db.Foods.Where(x => x.CategoryId == id).ToList();
                     return View("ListFood", food);
+                    
                 }
             }
 

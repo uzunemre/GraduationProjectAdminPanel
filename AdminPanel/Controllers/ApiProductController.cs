@@ -119,5 +119,52 @@ namespace AdminPanel.Controllers
         }
 
 
+
+        [HttpPost]
+        public String OrderPost([FromBody]OrderDTO order)
+        {
+            // int default_table_number = 0;
+
+            //  string description = order != null ? order.description : "";
+            //  string table_number = order != null ? (order.table_number).ToString() :"0";
+
+
+            /*if (Int32.TryParse(table_number, out default_table_number))
+            {
+                //return description+" "+table_number; // masa numarası 0 veya doğru haliyle döner
+
+                
+
+            }*/
+
+            if (order!= null)
+            {
+                var entity_order = new Order();
+                var restaurant_id = (from devices in context.Devices                  // istekte bulunulan mac 
+                                    where devices.MacAdress == order.mac_address     // adresinden
+                                    select devices.RestaurantId).SingleOrDefault();                     // id bul
+                
+                // id doğru gelmezse hata var. Doğru geldiği sürece sıkıntı yok. Mac adresi doğru
+                // alındığı sürece sıkıntı çıkarmaz
+                entity_order.RestaurantId = restaurant_id;
+                entity_order.TableNumber = order.table_number;
+                entity_order.OrderDetail = order.description;
+                context.Orders.Add(entity_order);
+                context.SaveChanges();
+                return "Success";
+            }
+
+
+          
+
+
+            return "Something wrong";
+        }
+
+
+
+
+
+
     }
 }

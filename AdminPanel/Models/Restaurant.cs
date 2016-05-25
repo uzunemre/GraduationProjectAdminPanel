@@ -10,6 +10,7 @@ namespace AdminPanel.Models
             this.Categories = new List<Category>();
             this.Devices = new List<Device>();
             this.Foods = new List<Food>();
+            this.Orders = new List<Order>();
         }
 
         public int Id { get; set; }
@@ -22,5 +23,6 @@ namespace AdminPanel.Models
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Device> Devices { get; set; }
         public virtual ICollection<Food> Foods { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }
