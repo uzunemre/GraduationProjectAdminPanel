@@ -1,11 +1,8 @@
 ﻿
 using AdminPanel.Models;
+using AdminPanel.SignalR;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AdminPanel.Controllers
@@ -21,9 +18,13 @@ namespace AdminPanel.Controllers
             int x = Int32.Parse(test);
             return x;
         }
-     
 
 
+        public ActionResult GetMessages()
+        {
+            MessagesRepository _messageRepository = new MessagesRepository();
+            return PartialView("OrderList", _messageRepository.GetAllMessages(1000));
+        }
 
         public ActionResult Index()
         {
@@ -34,6 +35,35 @@ namespace AdminPanel.Controllers
                 return RedirectToAction("Login");
             }
 
+            return View();
+            
+            
+            
+            
+            /*  else
+
+            {
+                using (GraduationProjectContext db = new GraduationProjectContext())
+                {
+                    int user_id = getSessionInfo();
+                    List<OrderDTO> data = (from orders in db.Orders
+                                           where user_id == orders.RestaurantId
+
+                                           select new OrderDTO()
+                                           {
+                                               table_number = orders.TableNumber,
+                                               description = orders.OrderDetail,
+
+
+
+                                           }).ToList();
+
+                    // Order DTO Listesi siparişlerde gösterilecek
+                                        
+                    return View(data);
+                }
+            }*/
+
             /*    else
                 {
                     int a = getSessionInfo();
@@ -41,8 +71,13 @@ namespace AdminPanel.Controllers
                     return View(foods.ToList());
                 }*/
 
-            return View();
+            
         }
+
+
+        
+
+
 
 
         public ActionResult Login()
@@ -82,13 +117,6 @@ namespace AdminPanel.Controllers
         }
 
 
-       
-
-
-
-        
-
-
 
         public ActionResult KategoriListele()
         {
@@ -120,4 +148,15 @@ namespace AdminPanel.Controllers
 
 
     }
+
+
+   
+
+
+
+
+
+
+
+
 }

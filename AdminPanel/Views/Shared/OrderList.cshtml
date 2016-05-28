@@ -1,0 +1,28 @@
+﻿@model IEnumerable<AdminPanel.Models.DTO.OrderDTO>
+
+
+<table class="table">
+    <tr>
+        <th>Masa Numarası</th>
+
+        <th>Açıklama</th>
+       
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.table_number)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.description)
+            </td>
+          
+
+        </tr>
+    }
+
+</table>
