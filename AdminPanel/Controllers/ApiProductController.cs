@@ -97,11 +97,10 @@ namespace AdminPanel.Controllers
                                                    name = food.Name,
                                                    description = food.Description,
                                                    price = food.Price,
-                                                   picture = food.PicturePath
-
-
-
-                                               }).ToList();
+                                                   picture = food.PicturePath,
+                                                   calorie = (int)food.Calorie
+                                                   
+                                                    }).ToList();
 
 
 
@@ -143,12 +142,18 @@ namespace AdminPanel.Controllers
                 var restaurant_id = (from devices in context.Devices                  // istekte bulunulan mac 
                                     where devices.MacAdress == order.mac_address     // adresinden
                                     select devices.RestaurantId).SingleOrDefault();                     // id bul
-                
+
                 // id doğru gelmezse hata var. Doğru geldiği sürece sıkıntı yok. Mac adresi doğru
                 // alındığı sürece sıkıntı çıkarmaz
+                
                 entity_order.RestaurantId = restaurant_id;
                 entity_order.TableNumber = order.table_number;
-                entity_order.OrderDetail = order.description;
+                entity_order.Products = order.products;
+                entity_order.Detail = order.description;
+                entity_order.Date = DateTime.Now;
+                entity_order.Price = order.price;
+                entity_order.Delivery = order.delivery;
+                
                 context.Orders.Add(entity_order);
                 context.SaveChanges();
                 return "Success";

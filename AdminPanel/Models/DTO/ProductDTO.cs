@@ -13,7 +13,9 @@ namespace AdminPanel.Models.DTO
         public string description { get; set; }
         public Nullable<decimal> price { get; set; }
         public string picture { get; set; }
-       // public string category_name { get; set; }
+        public int calorie { get; set; }
+       
+        // public string category_name { get; set; }
 
     }
 

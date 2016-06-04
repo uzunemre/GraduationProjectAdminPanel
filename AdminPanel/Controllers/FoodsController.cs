@@ -64,7 +64,7 @@ namespace AdminPanel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,Price,CategoryId")] Food food, HttpPostedFileBase uploadfile)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Calorie,Price,CategoryId")] Food food, HttpPostedFileBase uploadfile)
         {
             if (ModelState.IsValid)
             {
@@ -140,7 +140,7 @@ namespace AdminPanel.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,Price")] Food food, HttpPostedFileBase uploadfile)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Calorie,Price")] Food food, HttpPostedFileBase uploadfile)
         {
             // sessiona category_id bilgisi atadım ürün değişikliği o şekilde yapıldı
             if (ModelState.IsValid)

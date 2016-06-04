@@ -24,7 +24,7 @@ namespace AdminPanel.SignalR
                using (var connection = new SqlConnection(_connString))
                {
                    connection.Open();
-                   using (var command = new SqlCommand(@"SELECT [TableNumber], [OrderDetail] from [dbo].[Orders]", connection))
+                   using (var command = new SqlCommand(@"SELECT [Id],[TableNumber], [Products],[Detail] from [dbo].[Orders] where delivery=0", connection))  // sipariş teslim edilmeyenleri göster
                    {
                        command.Notification = null;
 
@@ -38,8 +38,9 @@ namespace AdminPanel.SignalR
 
                        while (reader.Read())
                        {
-                           messages.Add(item: new OrderDTO { table_number = (int)reader["TableNumber"], description = (string)reader["OrderDetail"]});
-                       }
+                           messages.Add(item: new OrderDTO { id = (Int64)reader["Id"], table_number = (int)reader["TableNumber"], products = (string)reader["Products"],description = (string)reader["Detail"]});
+                            //idler ile birlikte oku. Sipariş teslim edildiğinde id'ye göre delivery column true olacak
+                        }
                    }
 
                }

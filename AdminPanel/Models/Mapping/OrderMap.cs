@@ -11,7 +11,10 @@ namespace AdminPanel.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.OrderDetail)
+            this.Property(t => t.Products)
+                .IsRequired();
+
+            this.Property(t => t.Detail)
                 .IsRequired();
 
             // Table & Column Mappings
@@ -19,7 +22,11 @@ namespace AdminPanel.Models.Mapping
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.RestaurantId).HasColumnName("RestaurantId");
             this.Property(t => t.TableNumber).HasColumnName("TableNumber");
-            this.Property(t => t.OrderDetail).HasColumnName("OrderDetail");
+            this.Property(t => t.Products).HasColumnName("Products");
+            this.Property(t => t.Detail).HasColumnName("Detail");
+            this.Property(t => t.Date).HasColumnName("Date");
+            this.Property(t => t.Price).HasColumnName("Price");
+            this.Property(t => t.Delivery).HasColumnName("Delivery");
 
             // Relationships
             this.HasRequired(t => t.Restaurant)

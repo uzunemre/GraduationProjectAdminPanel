@@ -32,6 +32,7 @@ namespace AdminPanel.Models.Mapping
             this.Property(t => t.CategoryId).HasColumnName("CategoryId");
             this.Property(t => t.PicturePath).HasColumnName("PicturePath");
             this.Property(t => t.RestaurantId).HasColumnName("RestaurantId");
+            this.Property(t => t.Calorie).HasColumnName("Calorie");
 
             // Relationships
             this.HasRequired(t => t.Category)

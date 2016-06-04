@@ -5,10 +5,18 @@
     <tr>
         <th>Masa Numarası</th>
 
+        <th>Ürünler</th>
+
         <th>Açıklama</th>
+
+        <th>Bekleyen Siparişler</th>
+
+      
        
 
     </tr>
+
+
 
     @foreach (var item in Model)
     {
@@ -18,7 +26,29 @@
             </td>
 
             <td>
+                @Html.DisplayFor(modelItem => item.products)
+            </td>
+
+            <td>
                 @Html.DisplayFor(modelItem => item.description)
+            </td>
+
+            <td>
+                
+               
+               
+                @using (Html.BeginForm("Delete", "Order", new { id = item.id }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Teslim Et" class="btn btn-default" />
+                        
+                    </div>
+
+                }
+
+
+
             </td>
           
 

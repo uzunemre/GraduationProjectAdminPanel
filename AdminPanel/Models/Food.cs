@@ -12,6 +12,7 @@ namespace AdminPanel.Models
         public int CategoryId { get; set; }
         public string PicturePath { get; set; }
         public int RestaurantId { get; set; }
+        public int Calorie { get; set; }
         public virtual Category Category { get; set; }
         public virtual Restaurant Restaurant { get; set; }
     }
