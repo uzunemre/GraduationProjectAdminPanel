@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AdminPanel.Models.Food>
+
+@{
+    ViewBag.Title = "ListFood";
+}
+
+<p>
+<p>
+    @Html.ActionLink("Yeni Ürün Ekle", "Create", "Foods")
+</p>
+</p>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+           Kategori İsmi
+        </th>
+        
+        <th>
+            Ürün Adı
+        </th>
+        <th>
+            Açıklama
+        </th>
+        <th>
+            Fiyat
+        </th>
+        <th>
+            Kalori
+        </th>
+        <th>
+           Resim 
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Calorie)
+            </td>
+           
+             <td>
+              <!--  @Html.DisplayFor(modelItem => item.PicturePath) -->
+               <img src="~/@item.PicturePath " height="150" />
+            </td>
+            <td>
+                @Html.ActionLink("Düzenle", "Edit","Foods", new { id = item.Id },null) |
+                @Html.ActionLink("Detay", "Details","Foods", new { id = item.Id },null) |
+                @Html.ActionLink("Sil", "Delete","Foods", new { id = item.Id },null)
+            </td>
+        </tr>
+    }
+
+
+    
+
+
+
+</table>
+
+

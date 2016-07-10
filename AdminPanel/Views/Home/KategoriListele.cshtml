@@ -1,0 +1,50 @@
+﻿@model List<AdminPanel.Models.Category>
+
+
+@{
+    ViewBag.Title = "KategoriListele";
+}
+
+<p>
+<p>
+    @Html.ActionLink("Yeni Kategori Ekle", "Create", "Categories")
+</p>
+</p>
+
+<h2>KategoriListele</h2>
+
+
+
+
+
+<table class="table">
+    <tr>
+        
+        <th>
+            Kategori Ürünlere Git
+        </th>
+       
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            
+            <td>
+                <a href="@Url.Action("UrunListele", "Categories",new { id = item.Id })" class="btn btn-default">@item.Name</a>
+            </td>
+            
+            <td>
+                @Html.ActionLink("Düzenle", "Edit","Categories", new { id = item.Id },null) |
+                @Html.ActionLink("Detay", "Details","Categories", new { id = item.Id },null) |
+                @Html.ActionLink("Sil", "Delete","Categories", new { id = item.Id },null)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+

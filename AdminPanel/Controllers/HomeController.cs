@@ -22,8 +22,9 @@ namespace AdminPanel.Controllers
 
         public ActionResult GetMessages()
         {
+            int restaurant_id = getSessionInfo(); 
             MessagesRepository _messageRepository = new MessagesRepository();
-            return PartialView("OrderList", _messageRepository.GetAllMessages(1000));
+            return PartialView("OrderList", _messageRepository.GetAllMessages(restaurant_id));
         }
 
         public ActionResult Index()

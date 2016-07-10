@@ -24,9 +24,11 @@ namespace AdminPanel.SignalR
                using (var connection = new SqlConnection(_connString))
                {
                    connection.Open();
-                   using (var command = new SqlCommand(@"SELECT [Id],[TableNumber], [Products],[Detail] from [dbo].[Orders] where delivery=0", connection))  // sipariş teslim edilmeyenleri göster
+                   using (var command = new SqlCommand(@"SELECT [Id],[TableNumber], [Products],[Detail] from [dbo].[Orders] where delivery=0 and RestaurantId=@ID", connection))  // sipariş teslim edilmeyenleri göster
                    {
-                       command.Notification = null;
+                    command.Parameters.Add("@ID", SqlDbType.Int);
+                    command.Parameters["@ID"].Value = id;
+                    command.Notification = null;
 
                        var dependency = new SqlDependency(command);
                        dependency.OnChange += new OnChangeEventHandler(dependency_OnChange);

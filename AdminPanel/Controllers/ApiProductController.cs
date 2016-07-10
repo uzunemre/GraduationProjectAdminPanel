@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
@@ -51,6 +52,7 @@ namespace AdminPanel.Controllers
         public RootObject GetFood(string id)
         {
 
+            Thread.Sleep(2000);
 
             //Buraya devam et
 
@@ -61,6 +63,7 @@ namespace AdminPanel.Controllers
                                    categoryname = cat.name
                                };*/
 
+            // bu cihaza ait kategorileri tutar. test_category nesnesi
             var test_category = from device in context.Devices
                                 join rest in context.Restaurants on device.RestaurantId equals rest.Id
                                 join cat in context.Categories on rest.Id equals cat.RestaurantId

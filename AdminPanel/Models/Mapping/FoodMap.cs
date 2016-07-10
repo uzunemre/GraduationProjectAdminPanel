@@ -17,7 +17,7 @@ namespace AdminPanel.Models.Mapping
 
             this.Property(t => t.Description)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(1000);
 
             this.Property(t => t.PicturePath)
                 .IsRequired()
